@@ -84,8 +84,6 @@ on:
         required: false
         default: "-Missquenx+"
         type: string
-        options:
-          - -Missquenx+
       kernel_config:
         description: "Set the path of kernel .config"
         required: false
@@ -94,19 +92,18 @@ on:
         options:
           - kernel-config/release/general
           - kernel-config/release/s905x4
-      kernel_mu:
+      kernel_tipe:
         description: "Select the kernel source"
         required: false
-        default: "dev"
+        default: "stable"
         type: choice
         options:
-          - s905x4
           - stable
           - dev
           - beta
 
 env:
-  TZ: America/New_York
+  TZ: Asia/Jakarta
 
 jobs:
   build:
@@ -188,7 +185,7 @@ jobs:
         uses: ncipollo/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
-          tag: kernel_${{ inputs.kernel_mu }}
+          tag: kernel_${{ inputs.kernel_tipe }}
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -197,5 +194,5 @@ jobs:
             - The kernel source code comes from: ${{ inputs.kernel_source }}
             - The kernel compilation toolchain: ${{ inputs.kernel_toolchain }}
             - The kernel nama: ${{ inputs.kernel_sign }}
-            - This is a `${{ inputs.kernel_mu }}` kernel, which can be used in Armbian and OpenWrt.
+            - This is a `${{ inputs.kernel_tipe }}` kernel, which can be used in Armbian and OpenWrt.
             - 这是`稳定版`内核，可以在 Armbian 和 OpenWrt 里使用。
