@@ -94,6 +94,16 @@ on:
         options:
           - kernel-config/release/general
           - kernel-config/release/s905x4
+      kernel_mu:
+        description: "Select the kernel source"
+        required: false
+        default: "dev"
+        type: choice
+        options:
+          - s905x4
+          - stable
+          - dev
+          - beta
 
 env:
   TZ: America/New_York
@@ -178,7 +188,7 @@ jobs:
         uses: ncipollo/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
-          tag: kernel_stable
+          tag: kernel_${{ inputs.kernel_mu }}
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -186,5 +196,6 @@ jobs:
             - The kernel can be used to compile Armbian and OpenWrt.
             - The kernel source code comes from: ${{ inputs.kernel_source }}
             - The kernel compilation toolchain: ${{ inputs.kernel_toolchain }}
-            - This is a `stable` kernel, which can be used in Armbian and OpenWrt.
+            - The kernel nama: ${{ inputs.kernel_sign }}
+            - This is a `${{ inputs.kernel_mu }}` kernel, which can be used in Armbian and OpenWrt.
             - 这是`稳定版`内核，可以在 Armbian 和 OpenWrt 里使用。
