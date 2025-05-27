@@ -176,6 +176,7 @@ jobs:
           kernel_toolchain: ${{ inputs.kernel_toolchain }}
           kernel_sign: ${{ inputs.kernel_sign }}
           kernel_config: ${{ inputs.kernel_config }}
+          kernel_tipe: ${{ inputs.kernel_tipe }}
           compress_format: ${{ inputs.compress_format }}
           silent_log: ${{ inputs.silent_log }}
 
@@ -183,7 +184,7 @@ jobs:
         uses: ncipollo/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
-          tag: kernel_stable
+          tag: kernel_${{ inputs.kernel_tipe }}
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -191,5 +192,5 @@ jobs:
             - The kernel can be used to compile Armbian and OpenWrt.
             - The kernel source code comes from: ${{ inputs.kernel_source }}
             - The kernel compilation toolchain: ${{ inputs.kernel_toolchain }}
-            - This is a `stable` kernel, which can be used in Armbian and OpenWrt.
+            - This is a `${{ inputs.kernel_tipe }}` kernel, which can be used in Armbian and OpenWrt.
             - 这是`稳定版`内核，可以在 Armbian 和 OpenWrt 里使用。
