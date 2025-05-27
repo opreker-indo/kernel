@@ -13,11 +13,13 @@ on:
       kernel_source:
         description: "Select the kernel source"
         required: false
-        default: "unifreq"
+        default: "xidz-repo"
         type: choice
         options:
           - unifreq
           - codesnas
+          - xidz-repo
+          - Houjie80
       kernel_version:
         description: "Select kernel version"
         required: false
@@ -30,7 +32,6 @@ on:
           - 6.1.y
           - 6.6.y
           - 6.12.y
-          - 5.4.y_5.10.y
           - 5.15.y_6.1.y
           - 6.6.y_6.12.y
           - 5.4.y_5.10.y_5.15.y
@@ -81,20 +82,10 @@ on:
       kernel_sign:
         description: "Set the kernel custom signature"
         required: false
-        default: "-ophub"
-        type: choice
+        default: "-Missquenx+"
+        type: string
         options:
-          - -ophub
-          - -happy-new-year
-          - -dragon-boat-festival
-          - -mid-autumn-festival
-          - -happy-national-day
-          - -merry-christmas
-          - -spring-plowing
-          - -summer-growing
-          - -autumn-harvesting
-          - -winter-storing
-          - -yourname
+          - -Missquenx+
       kernel_config:
         description: "Set the path of kernel .config"
         required: false
@@ -102,7 +93,7 @@ on:
         type: choice
         options:
           - kernel-config/release/general
-          - false
+          - kernel-config/release/s905x4
 
 env:
   TZ: America/New_York
